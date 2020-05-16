@@ -11,4 +11,13 @@ RSpec.describe 'Merchants API Endpoints - ', type: :request do
     expect(merchants.count).to eq(3)
   end
 
+  it 'returns merchants show record' do
+    id = create(:merchant).id
+
+    get "/api/v1/merchants/#{id}"
+    merchant = JSON.parse(response.body)
+
+    expect(response).to be_successful
+    expect(merchant["id"]).to eq(id)
+  end
 end
