@@ -8,7 +8,7 @@ RSpec.describe 'Items API Endpoints - ', type: :request do
     items = JSON.parse(response.body)
 
     expect(response).to be_successful
-    expect(items.count).to eq(3)
+    expect(items["data"].count).to eq(3)
   end
 
   it 'returns items show record' do
@@ -18,7 +18,7 @@ RSpec.describe 'Items API Endpoints - ', type: :request do
     item = JSON.parse(response.body)
 
     expect(response).to be_successful
-    expect(item["id"]).to eq(id)
+    expect(item["data"]["id"]).to eq(id.to_s)
   end
 
   it 'creates item record' do
@@ -29,10 +29,12 @@ RSpec.describe 'Items API Endpoints - ', type: :request do
               merchant_id: merchant.id}
 
     post "/api/v1/items", params: params
+    response_item = JSON.parse(response.body)
     item = Item.last
 
     expect(response).to be_successful
     expect(item.name).to eq(params[:name])
+    expect(response_item["data"]["attributes"]["name"]).to eq(params[:name])
   end
 
   it 'updates item record' do
@@ -41,11 +43,14 @@ RSpec.describe 'Items API Endpoints - ', type: :request do
     update_parms = {description: Faker::Movies::Lebowski.quote}
 
     put "/api/v1/items/#{item.id}", params: update_parms
+    response_item = JSON.parse(response.body)
     updated_item = Item.find(item.id)
 
     expect(response).to be_successful
     expect(updated_item.description).to_not eq(orig_description)
     expect(updated_item.description).to eq(update_parms[:description])
+    expect(response_item["data"]["attributes"]["description"]).to_not eq(orig_description)
+    expect(response_item["data"]["attributes"]["description"]).to eq(update_parms[:description])
   end
 
   it 'destroys item record' do
