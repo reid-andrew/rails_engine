@@ -34,4 +34,21 @@ RSpec.describe 'Items API - ', type: :request do
     expect(response).to be_successful
     expect(item.name).to eq(params[:name])
   end
+
+  it 'updates item record' do
+    merchant = create(:merchant)
+    item = Item.create({name: Faker::Appliance.unique.equipment,
+              description: Faker::Movies::PrincessBride.quote,
+              unit_price: Faker::Number.positive,
+              merchant_id: merchant.id})
+    orig_description = item[:description]
+    update_parms = {description: Faker::Movies::Lebowski.quote}
+
+    put "/api/v1/items/#{item.id}", params: update_parms
+    updated_item = Item.find(item.id)
+
+    expect(response).to be_successful
+    expect(updated_item.description).to_not eq(orig_description)
+    expect(updated_item.description).to eq(update_parms[:description])
+  end
 end
