@@ -20,4 +20,14 @@ RSpec.describe 'Merchants API Endpoints - ', type: :request do
     expect(response).to be_successful
     expect(merchant["id"]).to eq(id)
   end
+
+  it 'creates merchant record' do
+    params = {name: Faker::Appliance.unique.equipment}
+
+    post "/api/v1/merchants", params: params
+    merchant = Merchant.last
+
+    expect(response).to be_successful
+    expect(merchant.name).to eq(params[:name])
+  end
 end

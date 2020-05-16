@@ -7,6 +7,10 @@ class Api::V1::MerchantsController < ApplicationController
     render json: Merchant.find(merchant_params[:id])
   end
 
+  def create
+    render json: Merchant.create(merchant_params)
+  end
+
   private
 
   def merchant_params
