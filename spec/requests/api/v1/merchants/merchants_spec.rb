@@ -43,4 +43,17 @@ RSpec.describe 'Merchants API Endpoints - ', type: :request do
     expect(updated_merchant.name).to_not eq(orig_name)
     expect(updated_merchant.name).to eq(update_parms[:name])
   end
+
+  it 'destroys merchant record' do
+    create_list(:merchant, 3)
+    merchant = Merchant.last
+
+    expect(Merchant.count).to eq(3)
+
+    delete "/api/v1/merchants/#{merchant.id}"
+
+    expect(response).to be_successful
+    expect(Merchant.count).to eq(2)
+    expect{Merchant.find(merchant.id)}.to raise_error(ActiveRecord::RecordNotFound)
+  end
 end
