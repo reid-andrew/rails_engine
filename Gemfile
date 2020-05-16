@@ -12,7 +12,7 @@ gem 'puma', '~> 3.7'
 # gem 'redis', '~> 4.0'
 # gem 'bcrypt', '~> 3.1.7'
 # gem 'capistrano-rails', group: :development
-# gem 'rack-cors'
+gem 'rack-cors'
 gem 'faraday'
 gem 'jquery'
 gem 'figaro'
