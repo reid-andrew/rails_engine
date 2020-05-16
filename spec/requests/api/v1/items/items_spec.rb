@@ -47,4 +47,17 @@ RSpec.describe 'Items API Endpoints - ', type: :request do
     expect(updated_item.description).to_not eq(orig_description)
     expect(updated_item.description).to eq(update_parms[:description])
   end
+
+  it 'destroys item record' do
+    create_list(:item, 3)
+    item = Item.last
+
+    expect(Item.count).to eq(3)
+
+    delete "/api/v1/items/#{item.id}"
+
+    expect(response).to be_successful
+    expect(Item.count).to eq(2)
+    expect{Item.find(item.id)}.to raise_error(ActiveRecord::RecordNotFound)
+  end
 end

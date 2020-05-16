@@ -15,6 +15,10 @@ class Api::V1::ItemsController < ApplicationController
     render json: Item.find(item_params[:id]).update(item_params)
   end
 
+  def destroy
+    render json: Item.delete(item_params[:id])
+  end
+
   private
 
   def item_params
