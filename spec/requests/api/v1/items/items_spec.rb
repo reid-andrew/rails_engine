@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Items API - ', type: :request do
+RSpec.describe 'Items API Endpoints - ', type: :request do
   it 'returns items index' do
     create_list(:item, 3)
 
@@ -36,11 +36,7 @@ RSpec.describe 'Items API - ', type: :request do
   end
 
   it 'updates item record' do
-    merchant = create(:merchant)
-    item = Item.create({name: Faker::Appliance.unique.equipment,
-              description: Faker::Movies::PrincessBride.quote,
-              unit_price: Faker::Number.positive,
-              merchant_id: merchant.id})
+    item = create(:item)
     orig_description = item[:description]
     update_parms = {description: Faker::Movies::Lebowski.quote}
 
