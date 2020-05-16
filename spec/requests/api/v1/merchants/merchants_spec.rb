@@ -3,12 +3,11 @@ require 'rails_helper'
 RSpec.describe 'Merchants API Endpoints - ', type: :request do
   it 'returns merchants index' do
     create_list(:merchant, 3)
-
     get '/api/v1/merchants'
     merchants = JSON.parse(response.body)
 
     expect(response).to be_successful
-    expect(merchants.count).to eq(3)
+    expect(merchants["data"].count).to eq(3)
   end
 
   it 'returns merchants show record' do
@@ -18,17 +17,19 @@ RSpec.describe 'Merchants API Endpoints - ', type: :request do
     merchant = JSON.parse(response.body)
 
     expect(response).to be_successful
-    expect(merchant["id"]).to eq(id)
+    expect(merchant["data"]["id"]).to eq(id.to_s)
   end
 
   it 'creates merchant record' do
     params = {name: Faker::Appliance.unique.equipment}
 
     post "/api/v1/merchants", params: params
+    response_merchant = JSON.parse(response.body)
     merchant = Merchant.last
 
     expect(response).to be_successful
-    expect(merchant.name).to eq(params[:name])
+    expect(merchant[:name]).to eq(params[:name])
+    expect(response_merchant["data"]["attributes"]["name"]).to eq(params[:name])
   end
 
   it 'updates merchant record' do
@@ -38,10 +39,13 @@ RSpec.describe 'Merchants API Endpoints - ', type: :request do
 
     put "/api/v1/merchants/#{merchant.id}", params: update_parms
     updated_merchant = Merchant.find(merchant.id)
+    response_merchant = JSON.parse(response.body)
 
     expect(response).to be_successful
     expect(updated_merchant.name).to_not eq(orig_name)
     expect(updated_merchant.name).to eq(update_parms[:name])
+    expect(response_merchant["data"]["attributes"]["name"]).to_not eq(orig_name)
+    expect(response_merchant["data"]["attributes"]["name"]).to eq(update_parms[:name])
   end
 
   it 'destroys merchant record' do
