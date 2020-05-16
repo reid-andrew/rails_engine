@@ -16,6 +16,7 @@ namespace :db do
     csv_text = File.read(File.join(path, file))
     csv = CSV.parse(csv_text, :headers => true)
     csv.each do |row|
+      row["unit_price"] = (row["unit_price"].to_f / 100).to_s if row["unit_price"]
       model.create!(row.to_hash)
     end
   end
