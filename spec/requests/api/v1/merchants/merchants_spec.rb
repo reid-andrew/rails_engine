@@ -55,9 +55,11 @@ RSpec.describe 'Merchants API Endpoints - ', type: :request do
     expect(Merchant.count).to eq(3)
 
     delete "/api/v1/merchants/#{merchant.id}"
+    response_merchant = JSON.parse(response.body)
 
     expect(response).to be_successful
     expect(Merchant.count).to eq(2)
     expect{Merchant.find(merchant.id)}.to raise_error(ActiveRecord::RecordNotFound)
+    expect(response_merchant["data"]["attributes"]["name"]).to eq(merchant.name)
   end
 end

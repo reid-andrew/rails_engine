@@ -8,6 +8,9 @@ namespace :db do
     data_load(Invoice, 'invoices.csv')
     data_load(InvoiceItem, 'invoice_items.csv')
     data_load(Transaction, 'transactions.csv')
+    ActiveRecord::Base.connection.tables.each do |table|
+      ActiveRecord::Base.connection.reset_pk_sequence!(table)
+    end
   end
 
   def data_load(model, file)
