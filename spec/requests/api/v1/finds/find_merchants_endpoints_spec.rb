@@ -15,13 +15,13 @@ RSpec.describe 'Find API Endpoints - ', type: :request do
 
   # it 'finds a single merchant by created date' do
   #   create_list(:merchant, 3)
-  #   get "/api/v1/merchants/find?created_at=#{Date.today}"
+  #   get "/api/v1/merchants/find?created_at=#{Time.zone.now}"
   #   merchant = JSON.parse(response.body)
   #
   #   expect(response).to be_successful
   #   expect(merchant["id"]).to eq(Merchant.first.id)
   # end
-  #
+
   # it 'finds a single merchant by multiple criteria' do
   #   create_list(:merchant, 3)
   #   expected = Merchant.create(name: 'Turing')
