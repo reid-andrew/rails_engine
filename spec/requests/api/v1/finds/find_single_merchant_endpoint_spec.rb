@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Find API Endpoints - ', type: :request do
+RSpec.describe 'Find Single Merchant API Endpoint - ', type: :request do
   it 'finds a single merchant by name' do
     create_list(:merchant, 3)
     expected = Merchant.create(name: 'Turing')

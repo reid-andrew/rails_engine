@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Find API Endpoints - ', type: :request do
+RSpec.describe 'Find Multiple Merchants API Endpoint - ', type: :request do
   it 'finds a multiple merchant by name' do
     create_list(:merchant, 3)
     expected_1 = Merchant.create(name: 'Turing')
@@ -21,6 +21,16 @@ RSpec.describe 'Find API Endpoints - ', type: :request do
     expect(merchants["data"][0]["attributes"]["name"]).to eq(expected_1.name)
     expect(merchants["data"][1]["attributes"]["name"]).to eq(expected_2.name)
     expect(merchants["data"][2]["attributes"]["name"]).to eq(expected_3.name)
+  end
+
+  it 'handles no results provided' do
+    Merchant.create(name: 'Turing')
+
+    get '/api/v1/merchants/find_all?name=nope'
+    merchants = JSON.parse(response.body)
+
+    expect(response).to be_successful
+    expect(merchants["data"]).to eq([])
   end
 
 end

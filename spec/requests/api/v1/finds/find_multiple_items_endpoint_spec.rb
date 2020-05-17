@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Find API Endpoints - ', type: :request do
+RSpec.describe 'Find Multiple Items API Endpoint - ', type: :request do
   before (:each) do
     @merchant = create(:merchant)
   end
