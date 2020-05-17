@@ -1,4 +1,4 @@
-class SingleFinderFilter
+class FinderFilter
   def self.call(results, params)
     new(results, params).filter
   end
@@ -21,6 +21,6 @@ class SingleFinderFilter
         @results = results.where("#{param} = #{params[param.to_sym]}")
       end
     end
-    results.first
+    results
   end
 end

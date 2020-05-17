@@ -2,7 +2,7 @@ class Api::V1::Items::FindController < ApplicationController
 
   def index
     item = Item.all
-    item = SingleFinderFilter.call(item, find_params)
+    item = FinderFilter.call(item, find_params).first
     render json: ItemSerializer.new(item)
   end
 
