@@ -3,6 +3,11 @@ Rails.application.routes.draw do
     namespace :v1 do
       namespace :merchants do
         resources :find, only: [:index]
+        resources :find_all, only: [:index]
+      end
+      namespace :items do
+        resources :find, only: [:index]
+        resources :find_all, only: [:index]
       end
       resources :items do
         resources :merchant, module: :items, only: [:index]

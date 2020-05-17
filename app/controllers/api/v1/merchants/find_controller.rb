@@ -1,11 +1,14 @@
 class Api::V1::Merchants::FindController < ApplicationController
+
   def index
-    render json: Merchant.where("LOWER(name) LIKE LOWER('%#{find_params[:name]}%')").first
+    merchant = Merchant.all
+    merchant = FinderFilter.call(merchant, find_params).first
+    render json: MerchantSerializer.new(merchant)
   end
 
   private
 
   def find_params
-    params.permit(:name, :created_at, :updated_at)
+    params.permit(:id, :name, :created_at, :updated_at)
   end
 end
