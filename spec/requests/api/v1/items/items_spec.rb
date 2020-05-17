@@ -60,9 +60,12 @@ RSpec.describe 'Items API Endpoints - ', type: :request do
     expect(Item.count).to eq(3)
 
     delete "/api/v1/items/#{item.id}"
+    response_item = JSON.parse(response.body)
 
     expect(response).to be_successful
     expect(Item.count).to eq(2)
     expect{Item.find(item.id)}.to raise_error(ActiveRecord::RecordNotFound)
+    expect(response_item["data"]["attributes"]["name"]).to eq(item.name)
+    expect(response_item["data"]["attributes"]["description"]).to eq(item.description)
   end
 end
