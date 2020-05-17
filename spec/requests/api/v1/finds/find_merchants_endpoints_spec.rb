@@ -10,7 +10,7 @@ RSpec.describe 'Find API Endpoints - ', type: :request do
     merchant = JSON.parse(response.body)
 
     expect(response).to be_successful
-    expect(merchant["id"]).to eq(expected.id)
+    expect(merchant["data"]["id"]).to eq(expected.id.to_s)
   end
 
   # it 'finds a single merchant by created date' do
@@ -44,9 +44,9 @@ RSpec.describe 'Find API Endpoints - ', type: :request do
     merchant = JSON.parse(response.body)
 
     expect(response).to be_successful
-    expect(merchant["id"]).to eq(expected.id)
+    expect(merchant["data"]["id"]).to eq(expected.id.to_s)
   end
-
+  
   it 'finds a single merchant in a case insensitive manner' do
     create_list(:merchant, 3)
     expected = Merchant.create(name: 'TuRiNg')
@@ -56,7 +56,7 @@ RSpec.describe 'Find API Endpoints - ', type: :request do
     merchant = JSON.parse(response.body)
 
     expect(response).to be_successful
-    expect(merchant["id"]).to eq(expected.id)
+    expect(merchant["data"]["id"]).to eq(expected.id.to_s)
   end
 
   it 'handles no results provided' do
@@ -68,6 +68,6 @@ RSpec.describe 'Find API Endpoints - ', type: :request do
     merchant = JSON.parse(response.body)
 
     expect(response).to be_successful
-    expect(merchant).to eq(nil)
+    expect(merchant["data"]).to eq(nil)
   end
 end
