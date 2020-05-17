@@ -8,7 +8,7 @@ RSpec.describe 'Item/Merchant Relationship API Endpoints - ', type: :request do
     merchant = JSON.parse(response.body)
 
     expect(response).to be_successful
-    expect(merchant['id']).to eq(item.merchant_id)
+    expect(merchant['data']['id']).to eq(item.merchant_id.to_s)
   end
 
   it 'returns the items associated with a merchant' do
@@ -27,7 +27,7 @@ RSpec.describe 'Item/Merchant Relationship API Endpoints - ', type: :request do
     items = JSON.parse(response.body)
 
     expect(response).to be_successful
-    expect(items.count).to eq(2)
-    expect(items[-1]["name"]).to eq(Item.last.name)
+    expect(items["data"].count).to eq(2)
+    expect(items["data"][-1]["attributes"]["name"]).to eq(Item.last.name)
   end
 end
