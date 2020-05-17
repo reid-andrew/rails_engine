@@ -46,7 +46,7 @@ RSpec.describe 'Find API Endpoints - ', type: :request do
     expect(response).to be_successful
     expect(merchant["data"]["id"]).to eq(expected.id.to_s)
   end
-  
+
   it 'finds a single merchant in a case insensitive manner' do
     create_list(:merchant, 3)
     expected = Merchant.create(name: 'TuRiNg')
