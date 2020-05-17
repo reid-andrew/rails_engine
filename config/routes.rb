@@ -4,6 +4,9 @@ Rails.application.routes.draw do
       namespace :merchants do
         resources :find, only: [:index]
       end
+      namespace :items do
+        resources :find, only: [:index]
+      end
       resources :items do
         resources :merchant, module: :items, only: [:index]
       end
