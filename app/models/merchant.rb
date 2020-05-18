@@ -4,7 +4,7 @@ class  Merchant < ApplicationRecord
   validates :name, presence: true
 
   def self.most_revenue(quantity)
-    sql =  "SELECT m.*, SUM(i.revenue) AS ttl_rev
+    sql =  "SELECT m.*, SUM(i.revenue) AS total_revenue
             FROM merchants m
             INNER JOIN (
                 SELECT invoices.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS revenue
@@ -15,7 +15,7 @@ class  Merchant < ApplicationRecord
                 GROUP BY invoices.id) i
             ON m.id = i.merchant_id
             GROUP BY m.id
-            ORDER BY ttl_rev DESC
+            ORDER BY total_revenue DESC
             LIMIT(#{quantity});"
     Merchant.find_by_sql(sql)
 
@@ -24,13 +24,10 @@ class  Merchant < ApplicationRecord
     # .merge(Transaction.successful)
     # .group(:id)
     #
-    # select('merchants.*, SUM(inv_totals.revenue) AS total_revenue')
-    # .joins(:inv_totals)
+    # Merchant.select('merchants.*, SUM(inv_totals.revenue) AS total_revenue')
+    # .joins(inv_totals)
     # .group(:id)
     # .order("total_revenue")
-    # .limit(1)
-    #
-    #
-    # inv_totals = Invoice.select('invoices.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS revenue').joins(:invoice_items, :transactions).merge(Transaction.successful).group(:id)
+    # .limit(quantity)
   end
 end
