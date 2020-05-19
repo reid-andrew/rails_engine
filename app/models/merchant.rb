@@ -1,5 +1,6 @@
 class  Merchant < ApplicationRecord
   has_many :items
+  has_many :invoices
 
   validates :name, presence: true
 
@@ -15,13 +16,10 @@ class  Merchant < ApplicationRecord
             LIMIT(#{quantity});"
     Merchant.find_by_sql(sql)
 
-    # inv_totals = Invoice.select('invoices.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS revenue')
+    # select('merchant.*, SUM(invoice_items.quantity * invoice_items.unit_price) as total_revenue')
+    # .joins(:invoices)
     # .joins(:invoice_items, :transactions)
     # .merge(Transaction.successful)
-    # .group(:id)
-    #
-    # Merchant.select('merchants.*, SUM(inv_totals.revenue) AS total_revenue')
-    # .joins(inv_totals)
     # .group(:id)
     # .order("total_revenue")
     # .limit(quantity)
