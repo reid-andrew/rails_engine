@@ -39,13 +39,27 @@ RSpec.describe Merchant, type: :model do
       top_one = Merchant.most_items(1)
       top_three = Merchant.most_items(3)
       top_five = Merchant.most_items(5)
-      
+
       expect(top_one[1]).to be nil
       expect(top_one[0]).to eq(top_three[0])
       expect(top_one[0]).to eq(top_five[0])
       expect(top_three[2]).to eq(top_five[2])
       expect(top_three[3]).to be nil
       expect(top_five[5]).to be nil
+    end
+
+    it '.revenue' do
+      item = InvoiceItem.first
+      merchant = item.invoice.merchant
+      expected = Merchant.revenue(merchant.id)[0].revenue
+
+      expect(expected).to eq(item.quantity * item.unit_price)
+
+      item = InvoiceItem.last
+      merchant = item.invoice.merchant
+      expected = Merchant.revenue(merchant.id)[0].revenue
+
+      expect(expected).to eq(item.quantity * item.unit_price)
     end
   end
 end
