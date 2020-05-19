@@ -4,16 +4,12 @@ class  Merchant < ApplicationRecord
   validates :name, presence: true
 
   def self.most_revenue(quantity)
-    sql =  "SELECT m.*, SUM(i.revenue) AS total_revenue
+    sql =  "SELECT m.*, SUM(s.quantity * s.unit_price) as total_revenue
             FROM merchants m
-            INNER JOIN (
-                SELECT invoices.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS revenue
-                FROM invoices
-                INNER JOIN invoice_items ON invoice_items.invoice_id = invoices.id
-                INNER JOIN transactions ON transactions.invoice_id = invoices.id
-                WHERE transactions.result = 'success'
-                GROUP BY invoices.id) i
-            ON m.id = i.merchant_id
+            INNER JOIN invoices i ON m.id = i.merchant_id
+            INNER JOIN invoice_items s ON s.invoice_id = i.id
+            INNER JOIN transactions t ON t.invoice_id = i.id
+            WHERE t.result = 'success'
             GROUP BY m.id
             ORDER BY total_revenue DESC
             LIMIT(#{quantity});"
