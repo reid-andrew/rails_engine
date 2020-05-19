@@ -5,5 +5,5 @@ class Invoice < ApplicationRecord
   has_many :invoice_items
   has_many :transactions
 
-  validates :status, presence: true
+  validates :status, presence: true  
 end
