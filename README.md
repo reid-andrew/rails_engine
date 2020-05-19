@@ -1,24 +1,21 @@
-# README
+# Rails Engine
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This application is the backend portion of the [Rails Engine](https://backend.turing.io/module3/projects/rails_engine) project for the Turing School of Software and Design.
 
-Things you may want to cover:
+It is a Ruby on Rails API application which includes 
 
-* Ruby version
+1. A Test Suite for Rails Engine
+1. A Back End used by[Rails Driver] (https://github.com/reid-andrew/rails_driver) 
+1. A Rake Task for clearing and seeding the Development database from .csv files stored in the application
 
-* System dependencies
+## Versions
+- Rails 5.1.7
+- Ruby 2.5.3
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Setup
+1. Clone the Rails Driver application and follow setup instructions in that repo
+1. CLone this repository and run the following commands:
+  1. `bundle`
+  1. `rails db:create`
+  1. `rake db:reload` This will seed the development database with original data from the .csv files neccessary to run the Rails Driver test suite
+  1. Run this application using the command `rails s` in order to use Rails Drive or run it's test suite
