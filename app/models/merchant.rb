@@ -26,4 +26,13 @@ class  Merchant < ApplicationRecord
     #         LIMIT(#{quantity});"
     # Merchant.find_by_sql(sql)
   end
+
+  def self.most_items(quantity)
+    select('merchants.*, SUM(invoice_items.quantity) AS total_items')
+    .joins(:invoices, :invoice_items, :transactions)
+    .merge(Transaction.successful)
+    .group(:id)
+    .order("total_items DESC")
+    .limit(quantity)
+  end
 end
