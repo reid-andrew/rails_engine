@@ -14,9 +14,8 @@ class FinderFilter
     params.each do |param|
       if results[0][param].class == String
         @results = results.where("LOWER(#{param}) LIKE LOWER('%#{params[param.to_sym]}%')")
-      # elsif results[0][param].class == ActiveSupport::TimeWithZone
-      #   parsed_param = ActiveSupport::TimeZone['UTC'].parse(params[param.to_sym])
-      #   @results = results.where("#{param.time.change(:usec=>0)} = #{parsed_param.change(:usec=>0)}")
+      elsif results[0][param].class == ActiveSupport::TimeWithZone
+        @results = results.where(created_at: Date.parse(params[param]).beginning_of_day...Date.parse(params[param]).end_of_day)
       else
         @results = results.where("#{param} = #{params[param.to_sym]}")
       end
