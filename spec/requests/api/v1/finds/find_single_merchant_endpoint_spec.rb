@@ -13,25 +13,25 @@ RSpec.describe 'Find Single Merchant API Endpoint - ', type: :request do
     expect(merchant["data"]["id"]).to eq(expected.id.to_s)
   end
 
-  # it 'finds a single merchant by created date' do
-  #   create_list(:merchant, 3)
-  #   get "/api/v1/merchants/find?created_at=#{Time.zone.now}"
-  #   merchant = JSON.parse(response.body)
-  #
-  #   expect(response).to be_successful
-  #   expect(merchant["id"]).to eq(Merchant.first.id)
-  # end
+  it 'finds a single merchant by created date' do
+    create_list(:merchant, 3)
+    get "/api/v1/merchants/find?created_at=#{Time.zone.now}"
+    merchant = JSON.parse(response.body)
 
-  # it 'finds a single merchant by multiple criteria' do
-  #   create_list(:merchant, 3)
-  #   expected = Merchant.create(name: 'Turing')
-  #   create_list(:merchant, 3)
-  #   get "/api/v1/merchants/find?name=ring&created_at=#{Date.today}"
-  #   merchant = JSON.parse(response.body)
-  #
-  #   expect(response).to be_successful
-  #   expect(merchant["id"]).to eq(expected.id)
-  # end
+    expect(response).to be_successful
+    expect(merchant["data"]["id"]).to eq(Merchant.first.id.to_s)
+  end
+
+  it 'finds a single merchant by multiple criteria' do
+    create_list(:merchant, 3)
+    expected = Merchant.create(name: 'Turing')
+    create_list(:merchant, 3)
+    get "/api/v1/merchants/find?name=ring&created_at=#{Date.today}"
+    merchant = JSON.parse(response.body)
+
+    expect(response).to be_successful
+    expect(merchant["data"]["id"]).to eq(expected.id.to_s)
+  end
 
   it 'returns the first merchant when multiple merchants meet the criteria' do
     create_list(:merchant, 3)
