@@ -22,7 +22,7 @@ RSpec.describe 'Business Intelligence API Endpoint - ', type: :request do
 
       expect(response).to be_successful
       expect(expected["data"].size).to eq(1)
-      expect(expected["data"][0]["attributes"]["revenue"]).to eq(total_revenue)
+      expect(expected["data"][0]["attributes"]["revenue"].round(2)).to eq(total_revenue.round(2))
     end
   end
 end
