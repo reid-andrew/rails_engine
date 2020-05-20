@@ -12,8 +12,17 @@ RSpec.describe 'Business Intelligence API Endpoint - ', type: :request do
       end
     end
 
-    it '' do
+    it 'finds revenue for a date range' do
+      total_revenue = InvoiceItem.sum do |item|
+        item.quantity * item.unit_price
+      end
 
+      get "/api/v1/revenue?start=#{Date.today - 5}&end=#{Date.today + 5}"
+      expected = JSON.parse(response.body)
+      
+      expect(response).to be_successful
+      expect(expected.size).to eq(1)
+      expect(expected[0]["revenue"]).to eq(total_revenue)
     end
   end
 end
