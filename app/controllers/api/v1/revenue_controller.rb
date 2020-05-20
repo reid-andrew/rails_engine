@@ -1,6 +1,6 @@
 class Api::V1::RevenueController < ApplicationController
   def index
-    render json: RevenueSerializer.new(Revenue.revenue_across_dates(revenue_params[:start], revenue_params[:end])).serialized_json
+    render json: Revenue.revenue_across_dates(revenue_params[:start], revenue_params[:end])
   end
 
   private
