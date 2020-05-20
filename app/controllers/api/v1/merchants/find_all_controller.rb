@@ -1,8 +1,6 @@
 class Api::V1::Merchants::FindAllController < ApplicationController
-
   def index
-    merchants = Merchant.all
-    merchants = FinderFilter.call(merchants, find_params)
+    merchants = FinderFilter.call(Merchant.all, find_params)
     render json: MerchantSerializer.new(merchants)
   end
 
