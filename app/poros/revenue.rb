@@ -1,4 +1,5 @@
 class Revenue
+
   def self.revenue_across_dates(start_date, end_date)
     InvoiceItem.select('SUM(invoice_items.quantity * invoice_items.unit_price) AS revenue')
                .joins(:transactions)
