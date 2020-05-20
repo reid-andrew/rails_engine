@@ -95,6 +95,18 @@ RSpec.describe 'Find Multiple Items API Endpoint - ', type: :request do
     expect(items["data"][0]["attributes"]["description"]).to eq(expected_1.description)
     expect(items["data"][1]["attributes"]["description"]).to eq(expected_2.description)
     expect(items["data"][2]["attributes"]["description"]).to eq(expected_3.description)
+
+    get "/api/v1/items/find_all?name=dge&updated_at=#{Time.zone.now}"
+    items = JSON.parse(response.body)
+
+    expect(response).to be_successful
+    expect(items["data"].size).to eq(3)
+    expect(items["data"][0]["id"]).to eq(expected_1.id.to_s)
+    expect(items["data"][1]["id"]).to eq(expected_2.id.to_s)
+    expect(items["data"][2]["id"]).to eq(expected_3.id.to_s)
+    expect(items["data"][0]["attributes"]["description"]).to eq(expected_1.description)
+    expect(items["data"][1]["attributes"]["description"]).to eq(expected_2.description)
+    expect(items["data"][2]["attributes"]["description"]).to eq(expected_3.description)
   end
 
   it 'handles no results provided' do

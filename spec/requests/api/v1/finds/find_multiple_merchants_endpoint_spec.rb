@@ -1,14 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe 'Find Multiple Merchants API Endpoint - ', type: :request do
-  it 'finds a multiple merchant by name' do
-    create_list(:merchant, 3)
+  it 'finds multiple merchants by name' do
+    Merchant.create(name: 'a')
     expected_1 = Merchant.create(name: 'Turing')
-    create_list(:merchant, 2)
+    Merchant.create(name: 'b')
     expected_2 = Merchant.create(name: 'Boring')
-    create_list(:merchant, 2)
+    Merchant.create(name: 'c')
+    Merchant.create(name: 'd')
     expected_3 = Merchant.create(name: 'Ring Central')
-    create_list(:merchant, 3)
+    Merchant.create(name: 'e')
 
     get '/api/v1/merchants/find_all?name=ring'
     merchants = JSON.parse(response.body)

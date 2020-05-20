@@ -51,20 +51,20 @@ RSpec.describe 'Find Single Item API Endpoint - ', type: :request do
     expect(item["data"]["attributes"]["description"]).to eq(expected.description)
   end
 
-  # it 'finds a single item by created date' do
-  #   expected = Item.create(name: Faker::Appliance.unique.equipment,
-  #                          description: Faker::Movies::PrincessBride.quote,
-  #                          unit_price: Faker::Number.positive,
-  #                          merchant_id: @merchant.id)
-  #   create_list(:item, 5)
-  #
-  #   get '/api/v1/items/find?created_at=#{Time.zone.now}'
-  #   item = JSON.parse(response.body)
-  #
-  #   expect(response).to be_successful
-  #   expect(item["data"]["id"]).to eq(expected.id.to_s)
-  #   expect(item["data"]["attributes"]["description"]).to eq(expected.description)
-  # end
+  it 'finds a single item by created date' do
+    expected = Item.create(name: Faker::Appliance.unique.equipment,
+                           description: Faker::Movies::PrincessBride.quote,
+                           unit_price: Faker::Number.positive,
+                           merchant_id: @merchant.id)
+    create_list(:item, 5)
+
+    get "/api/v1/items/find?created_at=#{Time.zone.now}"
+    item = JSON.parse(response.body)
+
+    expect(response).to be_successful
+    expect(item["data"]["id"]).to eq(expected.id.to_s)
+    expect(item["data"]["attributes"]["description"]).to eq(expected.description)
+  end
 
   it 'returns the first item when multiple items meet the criteria' do
     create_list(:item, 3)
