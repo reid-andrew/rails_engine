@@ -1,6 +1,7 @@
 class Api::V1::RevenueController < ApplicationController
   def index
-    render json: Revenue.revenue_across_dates(revenue_params[:start], revenue_params[:end])
+    @revenue = Revenue.revenue_across_dates(revenue_params[:start], revenue_params[:end])
+    render '/revenue/index.json'
   end
 
   private

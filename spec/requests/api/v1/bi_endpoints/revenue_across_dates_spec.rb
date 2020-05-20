@@ -19,10 +19,10 @@ RSpec.describe 'Business Intelligence API Endpoint - ', type: :request do
 
       get "/api/v1/revenue?start=#{Date.today - 5}&end=#{Date.today + 5}"
       expected = JSON.parse(response.body)
-
+      require "pry"; binding.pry
       expect(response).to be_successful
       expect(expected["data"].size).to eq(1)
-      expect(expected["data"][0]["attributes"]["revenue"].round(2)).to eq(total_revenue.round(2))
+      expect(expected["data"]["attributes"]["revenue"].round(2)).to eq(total_revenue.round(2))
     end
   end
 end
