@@ -22,5 +22,3 @@ It is a Ruby on Rails API application which includes
 
 ## Schema
 ![rails_engine_schema](https://github.com/reid-andrew/rails_engine/blob/master/schema.png?raw=true)
-
-Screen Shot 2020-05-22 at 12.51.30 PM.png
