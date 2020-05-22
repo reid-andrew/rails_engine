@@ -21,4 +21,5 @@ It is a Ruby on Rails API application which includes
   1. Run this application using the command `rails s` in order to use Rails Drive or run it's test suite
 
 ## Schema
-![rails_engine_schema](Screen Shot 2020-05-22 at 12.51.30 PM.png)
+![rails_engine_schema](https://github.com/reid-andrew/rails_engine/blob/master]/Screen Shot 2020-05-22 at 12.51.30 PM.png?raw=true)
+![]()
