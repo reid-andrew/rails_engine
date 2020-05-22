@@ -19,3 +19,6 @@ It is a Ruby on Rails API application which includes
   1. `rails db:create`
   1. `rake db:reload` This will seed the development database with original data from the .csv files neccessary to run the Rails Driver test suite
   1. Run this application using the command `rails s` in order to use Rails Drive or run it's test suite
+
+## Schema
+![rails_engine_schema](Screen Shot 2020-05-22 at 12.51.30 PM.png)
